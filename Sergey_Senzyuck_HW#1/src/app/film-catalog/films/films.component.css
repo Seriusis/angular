@@ -1,0 +1,15 @@
+.film-card {
+    max-width: 400px;
+  }
+
+  .film-card details-inner{
+    max-height:110px;
+    overflow: hidden;
+    max-height: 102px;
+    display: block;
+    text-overflow: ellipsis;
+  }
+  .film-card .mat-card-content{
+    text-align: left;
+  }
+  div {color: red}
