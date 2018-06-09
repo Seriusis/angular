@@ -1,0 +1,11 @@
+.film-card mat-card-content{
+    max-height:110px;
+    overflow: hidden;
+    height: 102px;
+    display: block;
+    text-overflow: ellipsis;
+  }
+  .mat-card-header-text{
+    text-align: center;
+    margin:0 auto;
+  }

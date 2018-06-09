@@ -1,0 +1,14 @@
+.film-card {
+    max-width: 400px;
+  }
+
+
+  .film-card .mat-card-content{
+    text-align: left;
+  }
+
+.mat-toolbar-row{
+    height:auto;
+}
+.mat-form-field{line-height:1.5}
+.example-spacer{flex: 1 1 auto;}
