@@ -1,0 +1,51 @@
+ 
+    <mat-toolbar class="menu-toolbar">
+        <mat-toolbar-row>
+          <span *ngIf ="favorites.length">В избранное добавлено: {{favorites.length}} элементов</span>
+          <span class="example-spacer"></span>
+          
+          <div>
+              <mat-form-field>
+                  <input (input) = "searchFilm($event.target.value)" matInput placeholder="Поиск фильма">
+              </mat-form-field>
+          </div>
+          <span class="example-spacer"></span>
+            <div *ngIf = "films.length > 1">
+                <mat-form-field>
+                  <mat-select placeholder="Сортировка" [(value)] = "sortingMethod" (selectionChange) = "sortItems(sortingMethod)">
+                    <mat-option value="1">По алфавиту: A-Z</mat-option>
+                    <mat-option value="-1">По алфавиту: Z-A </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+
+    <mat-grid-list *ngIf = "films.length>0; else noFilmsBlock" cols="3" rowHeight="1:1.9">
+        <mat-grid-tile *ngFor="let film of films; index as filmIndex; trackBy : trackByFn">
+  
+        <film-item [film] = "film"  (update) = "onUpdateFavorite(filmIndex)"></film-item>
+  
+        </mat-grid-tile>
+        
+        
+        <div class="align-center bottom-list-panel">
+                <mat-divider></mat-divider>
+            <button color="warn" *ngIf = "films.length > 1" mat-raised-button [disabled] = "isLastPage()" (click) = "showMore()" class="show-more">Показать еще</button>
+        </div>
+    </mat-grid-list>
+    
+    <ng-template #noFilmsBlock>
+        Нет фильмов для отображения
+    </ng-template>
+
+    
+ 
+   
+  
+  
+  
+
+
