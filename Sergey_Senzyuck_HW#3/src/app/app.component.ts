@@ -11,5 +11,5 @@ export class AppComponent {
     { path: '/main', label: 'Главная', active: 'button-active', icon: 'home'}, 
     { path: '/films', label: 'Все фильмы', active: 'button-active', icon: 'list_alt'}
   ];
-
+  
 }

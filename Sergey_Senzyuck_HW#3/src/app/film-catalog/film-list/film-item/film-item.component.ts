@@ -8,7 +8,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class FilmItemComponent implements OnInit {
   @Output() update = new EventEmitter<string>();
   @Input() film: object;
-  //@Input() index: number;
   constructor() { }
 
   ngOnInit() {

@@ -11,3 +11,7 @@ mat-card {
     text-align: center;
   }
   mat-toolbar[_ngcontent-c4] .mat-form-field-infix{width:200px}
+.container{
+    max-width: 1100px;
+    margin:0 auto;
+}

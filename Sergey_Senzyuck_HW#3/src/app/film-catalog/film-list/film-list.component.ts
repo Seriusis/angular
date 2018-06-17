@@ -11,20 +11,19 @@ export class FilmListComponent implements OnInit {
 
   description: string = 'Middle card description';
   films = []; 
-  favorites = [];
-  searchResults = [];
-  sortingMethod:string = '';
+  favorites:number;
+  //searchResults = [];
+  sortingMethod:number;
   
   constructor(private filmsService: FilmService) {}
   
-  getFilms(){
-    this.films = this.filmsService.getFilms();
+  getFilms(start = null){
+    this.films = this.filmsService.getFilms(this.sortingMethod, start);
   }
   
   ngOnInit() { 
-    this.getFilms();
+    this.getFilms('start');
     this.updateFavorites();
-    console.log(this.filmsService.pageConfig)
   }
 
   onUpdateFavorite(index){
@@ -33,29 +32,19 @@ export class FilmListComponent implements OnInit {
   }
 
   updateFavorites(){
-    this.favorites = this.films.filter(item => item.favorite && item);
+    this.favorites = this.films.filter(item => item.favorite).length;
   }
 
-  
-  sortItems(direct) {
-    return this.films.sort((a,b) => {
-      let x = a.name.toLowerCase();
-      let y = b.name.toLowerCase();
-      if (x < y) {return -1*direct;}
-      if (x > y) {return 1*direct;}
-      return 0;
-    })
-  }
+
 
   searchFilm(value){
     if(value.length > 2){
       let exp = new RegExp(value, "i")
-      this.films = this.filmsService.getFilms().filter(item => {
+      this.films = this.filmsService.getFilms(this.sortingMethod).filter(item => {
         return exp.test(item['name']);//item.name дает ошибку "Свойство "name" не существует в типе "object"."
       })
     } else {
-      this.filmsService.updatePage();
-      this.getFilms();
+      this.getFilms('start');
     }
   }
 
@@ -63,9 +52,7 @@ export class FilmListComponent implements OnInit {
     return this.filmsService.isLastPage();
   }
   showMore(){
-    this.filmsService.updatePage();
     this.getFilms();
-   // this.sortItems(this.sortingMethod)
   }
 
   trackByFn(index, item) {
