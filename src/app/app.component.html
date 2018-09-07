@@ -1,27 +1,59 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Сделать валидацию профиля пользователя используя только model driven подход.</h2>
-<form [formGroup] = "userForm">
-  <label>Имя</label><br>
-  <input type="text" formControlName = "name"> {{formErrors.name}}  <br><br>
+<div class="container">
+  <div style="text-align:center">
+    <h1>
+      Welcome to {{ title }}!
+    </h1>
+    <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  </div>
+  <h2> Необходимо сделать форму, которая проверяет возраст пользователя.</h2>
+  <h3> Template Driven подход</h3>
+
+  <form clrForm clrLayout="horizontal" (ngSubmit) = "save()" #form = "ngForm">
+    <div class="clr-form-control">
+        <label for="select-full" class="clr-control-label">Какой жанр фильма вы хотите посмотреть</label>
+        <div class="clr-control-container">
+          <div class="clr-select-wrapper">
+            <select class="clr-select" ngModel name="genre" >
+                <option value="cartoon" >Мультфильм</option>
+                <option value="comedy" >Комедия</option>
+                <option value="horrors" >Ужасы</option> 
+            </select>
+            <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+          </div>
+        </div>
+      </div>
+
+      <ng-container *ngIf="form.controls.genre?.value == 'horrors'">
+
+          <clr-input-container >
+              <label>Сколько Вам лет?</label>
+              <input clrInput type="text" ngModel name="age" />
+          </clr-input-container>
+
+          <ng-container *ngIf="form.controls.age?.dirty">
+              <div  class="clr-form-control" *ngIf="form.controls.age?.value >=18; else noAccess">
+                  <label for="select-full" class="clr-control-label">Что такое VHS</label>
+                  <div class="clr-control-container">
+                    <div class="clr-select-wrapper">
+                      <select class="clr-select" ngModel name="vhs" >
+                          <option value="v-cassette" >Видеокасета</option>
+                          <option value="framework" >Фреймворк</option>
+                      </select>
+                      <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                    </div>
+                  </div>
+                </div>
+                <ng-container *ngIf="form.controls.vhs?.dirty;">
+                    <ng-container *ngIf="form.controls.vhs?.value == 'v-cassette' then success else fail"></ng-container>
+                </ng-container>
+          </ng-container>
+      </ng-container>
+  </form>
   
 
-  <label>Фамилия</label><br>
-  <input type = "text" formControlName = "lastName">   {{formErrors.lastName}}  <br><br>
+<ng-template #noAccess>Вы не можете просматривать этот контент</ng-template>
+<ng-template #success>Вы прошли проверку</ng-template>
+<ng-template #fail>Ваш возраст не подтвержден</ng-template>
 
-  <label>Телефон</label><br>
-  <input type="text" formControlName = "telephone1" placeholder = "+38(099) 999 99 99">    {{formErrors.telephone1}}<br><br>
 
-  <label>Адрес</label><br>
-  <textarea formControlName = "address"></textarea>   {{formErrors.address}}<br><br>
-
-  <label>Email</label><br>
-  <input type="email" formControlName = "email">    {{formErrors.email}}<br><br>
-
-  <button type = "submit">Регистрация</button>
-</form>
+</div>

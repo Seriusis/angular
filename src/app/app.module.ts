@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { ReactiveFormsModule,  FormControl, FormGroup} from '@angular/forms';
+import { FormsModule} from '@angular/forms';
+
+import { ClarityModule, ClrFormsNextModule } from '@clr/angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -11,7 +14,10 @@ import { ReactiveFormsModule,  FormControl, FormGroup} from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule
+    FormsModule,
+    ClarityModule,
+    ClrFormsNextModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
